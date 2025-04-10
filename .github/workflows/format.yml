@@ -31,6 +31,13 @@ jobs:
       - name: Setup Bazel
         uses: bazel-contrib/setup-bazel@0.9.1
 
+      - name: Cache Bazel
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/bazel
+          key: ${{ runner.os }}-bazel-${{ hashFiles('**/MODULE.bazel', '**/WORKSPACE', '**/BUILD', '**/*.bzl') }}
+          restore-keys: ${{ runner.os }}-bazel-
+
       - name: Run Formatting Check
         run: |
           echo "Running: bazel ${{ inputs.bazel-target }}"
