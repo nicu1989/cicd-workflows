@@ -118,12 +118,13 @@ jobs:
             git checkout --orphan gh-pages
             git rm -rf . || true
             REPO_NAME=$(basename "${REPO}")
+            OWNER_NAME="${REPO%%/*}"
 
             touch versions.json
             echo "[" > versions.json
             echo "  {" >> versions.json
             echo "    \"version\": \"main\"," >> versions.json
-            echo "    \"url\": \"https://eclipse-score.github.io/${REPO_NAME}/main/\"" >> versions.json
+            echo "    \"url\": \"https://${OWNER_NAME}.github.io/${REPO_NAME}/main/\"" >> versions.json
             echo "  }" >> versions.json
             echo "]" >> versions.json
 
