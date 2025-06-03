@@ -163,7 +163,7 @@ jobs:
 
       - name: Deploy 🚀
         id: pages-deployment
-        uses: eclipse-score/cicd-workflows/.github/actions/deploy-versioned-pages@main
+        uses: nicu1989/cicd-workflows/.github/actions/deploy-versioned-pages@main
         with:
           source_folder: extracted_docs/html
           deployment_type: ${{ inputs.deployment_type }}
