@@ -70,15 +70,8 @@ jobs:
 
       - name: Build documentation
         run: |
-          bazel build ${{ inputs.bazel-target }}
-
-          # Strip // and use path form to find the tarball
-          TARGET="${{ inputs.bazel-target }}"
-          TARGET="${TARGET%% *}"
-          TARGET_PATH="${TARGET#//}"                 # remove leading //
-          TARGET_PATH="${TARGET_PATH/:/\/}"          # replace : with /
-          cp bazel-bin/$TARGET_PATH.tar github-pages.tar
-
+          bazel run ${{ inputs.bazel-target }}
+          tar -cvf github-pages.tar _build
 
       - name: Upload documentation artifact
         uses: actions/upload-artifact@v4.4.0
