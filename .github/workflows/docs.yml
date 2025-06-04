@@ -158,5 +158,5 @@ jobs:
         id: pages-deployment
         uses: nicu1989/cicd-workflows/.github/actions/deploy-versioned-pages@main
         with:
-          source_folder: extracted_docs/html
+          source_folder: extracted_docs
           deployment_type: ${{ inputs.deployment_type }}
