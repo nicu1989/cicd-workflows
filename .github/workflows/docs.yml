@@ -224,25 +224,6 @@ jobs:
             --repository_cache="${{ steps.paths.outputs.repo_cache }}" \
             --disk_cache="${{ steps.paths.outputs.disk_cache }}" \
 
-      - name: Locate Bazel testlogs dir
-        id: bazel-info
-        continue-on-error: true
-        if: always()
-        run: |
-          set -euo pipefail
-          testlogs_dir="$(bazel \
-            --output_base="${{ steps.paths.outputs.output_base }}" \
-            info bazel-testlogs)"
-          echo "Bazel testlogs dir: ${testlogs_dir}"
-          echo "testlogs_dir=${testlogs_dir}" >> "$GITHUB_OUTPUT"
-
-      - name: Upload Bazel testlogs artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: bazel-testlogs
-          path: ${{ steps.bazel-info.outputs.testlogs_dir }}/
-
       - name: Find comment
         if: ${{ github.event_name == 'pull_request_target' }}
         uses: peter-evans/find-comment@v3
