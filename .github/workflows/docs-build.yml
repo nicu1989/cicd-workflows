@@ -31,6 +31,11 @@ on:
         required: false
         type: string
         default: "//:docs"
+      tests-report-artifact:
+        description: "Name of the artifact that contains test reports"
+        required: false
+        default: ""
+        type: string
       deployment_type:
         description: "Type of deployment: legacy or workflow"
         type: string
@@ -111,6 +116,14 @@ jobs:
         with:
           packages: graphviz
           cache: false
+
+      - name: Download consumer test report
+        if: ${{ inputs.tests-report-artifact != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.tests-report-artifact }}
+          path: tests-report
+          if-no-files-found: warn
 
       - name: Build documentation
         run: |
