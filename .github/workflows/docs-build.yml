@@ -117,13 +117,21 @@ jobs:
           packages: graphviz
           cache: false
 
-      - name: Download consumer test report
+      - name: Download test report
         if: ${{ inputs.tests-report-artifact != '' }}
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.tests-report-artifact }}
           path: tests-report
-          if-no-files-found: warn
+
+      - name: List downloaded test report contents
+        if: ${{ inputs.tests-report-artifact != '' }}
+        run: |
+          echo "Contents of downloaded test report artifact:"
+          find tests-report -type f -exec ls -la {} \;
+          echo ""
+          echo "Directory structure:"
+          find tests-report -type d | sort
 
       - name: Build documentation
         run: |
